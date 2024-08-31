@@ -1,0 +1,371 @@
+<html dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .hero-slider {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+      }
+
+      .carousel-item {
+        height: 400px;
+      }
+
+      .carousel-item img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+
+      .carousel-caption {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .one {
+        justify-content: space-around;
+      }
+    </style>
+    <title>تصنيفات</title>
+  </head>
+  <body
+    class="d-flex flex-column min-vh-100"
+    style="background: linear-gradient(135deg, #001f3f 0%, #9c27b0 100%)"
+  >
+    <nav class="navbar navbar-expand-sm navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="/frontend/Index.html">
+          <img
+            src="/backend/Backend/img/logo_min_project.png"
+            alt="شعار"
+            style="height: 100px"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="تبديل الملاحة"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="/frontend/Index.html"
+                >الصفحة الرئيسية</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="about.html">حول</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="contact.html">تواصل معنا</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="/frontend/Shop/shop.html"
+                >متجر</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                تصنيفات
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="products.html?category=شوكلاته"
+                    >شوكلاته</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=اللحوم"
+                    >اللحوم</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=الأسماك"
+                    >الأسماك</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="products.html?category=الحبوب الغذائية والبقوليات"
+                    >الحبوب الغذائية والبقوليات</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=شيبس"
+                    >شيبس</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="products.html?category=منتجات التنظيف والمساحيق"
+                    >منتجات التنظيف والمساحيق</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- افترض أن المستخدم مسجل دخول -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle text-dark"
+                href="#"
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                حسابي
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                <li>
+                  <a class="dropdown-item" href="profile.html">ملف شخصي</a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-danger" href="logout.html"
+                    >تسجيل خروج</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                href="/frontend/Shop/CartItemview.html"
+                class="nav-link text-dark"
+              >
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <section class="hero-slider" style="color: white">
+      <div
+        id="carouselExampleCaptions"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="/backend/Backend/img/slide1.png"
+              class="d-block w-100"
+              alt="Slide 1"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h1>أهلاً وسهلاً بكم في محلنا</h1>
+              <p>نحن موجودون لخدمتكم</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="/backend/Backend/img/slide2.png"
+              class="d-block w-100"
+              alt="Slide 2"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h1>أهلاً وسهلاً بكم في محلنا</h1>
+              <p>نحن موجودون لخدمتكم</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="/backend/Backend/img/slide3.png"
+              class="d-block w-100"
+              alt="Slide 3"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h1>أهلاً وسهلاً بكم في محلنا</h1>
+              <p>نحن موجودون لخدمتكم</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="/backend/Backend/img/slide4.png"
+              class="d-block w-100"
+              alt="Slide 4"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h1>أهلاً وسهلاً بكم في محلنا</h1>
+              <p>نحن موجودون لخدمتكم</p>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">السابق</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">التالي</span>
+        </button>
+      </div>
+    </section>
+    <br /><br />
+    <br />
+    <div class="container mt-4">
+      <div id="container" class="row one"></div>
+    </div>
+    <br />
+    <br />
+
+    <footer class="text-center bg-light py-5 mt-auto w-100 shadow-lg">
+      <div class="container">
+        <div class="row justify-content-center mb-4">
+          <div class="col-12 col-md-8">
+            <ul class="nav justify-content-center mb-3">
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="index.html"
+                  >الصفحة الرئيسية</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="about.html">حول</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="contact.html">تواصل معنا</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="products.html">متجر</a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link text-dark"
+                  href="/frontend/Categories/Categories.html"
+                  >تصنيفات</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div
+            class="col-12 col-md-6 d-flex justify-content-around align-items-center flex-wrap"
+          >
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              class="btn btn-primary btn-lg rounded-circle mb-2"
+              aria-label="فيسبوك"
+            >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              class="btn btn-info btn-lg rounded-circle mb-2"
+              aria-label="تويتر"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              class="btn btn-danger btn-lg rounded-circle mb-2"
+              aria-label="إنستاجرام"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              class="btn btn-primary btn-lg rounded-circle mb-2"
+              aria-label="لينكدإن"
+            >
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <button
+              type="button"
+              class="btn btn-success btn-lg mb-2 rounded-circle"
+              onclick="window.location.href='tel:+0777956583'"
+            >
+              <i class="fas fa-phone-alt"></i>
+            </button>
+          </div>
+        </div>
+        <br /><br /><br />
+        <div class="container">
+          <div
+            class="d-flex justify-content-center align-items-center text-black"
+            style="overflow: hidden; white-space: nowrap"
+          >
+            <img
+              src="/backend/Backend/img/علم الاردن.png"
+              alt="Jordanian Flag"
+              class="me-3"
+              style="height: 50px"
+            />
+            <br />
+            <div
+              class="scrolling-banner-text d-inline-block fw-bold"
+              style="animation: scroll 15s linear infinite"
+            >
+              معا لدعم فلسطين
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <style>
+      .scrolling-banner-text {
+        white-space: nowrap;
+        display: inline-block;
+        animation: scroll 15s linear infinite;
+      }
+
+      @keyframes scroll {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+    </style>
+    <script src="/frontend/Categories/Categories.js"></script>
+  </body>
+</html>

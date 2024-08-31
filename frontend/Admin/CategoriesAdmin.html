@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* تخصيص sidebar */
+      .sidebar {
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding-top: 20px;
+        width: 250px;
+        background-color: #343a40;
+      }
+
+      .sidebar .nav-link {
+        color: white;
+        font-size: 18px;
+        margin: 10px 0;
+      }
+
+      .sidebar .nav-link:hover {
+        background-color: #495057;
+      }
+
+      .content {
+        margin-left: 260px; /* ترك مساحة للـ sidebar */
+        padding: 20px;
+      }
+
+      /* تخصيص مركزية الجدول */
+      .table-container {
+        display: flex;
+        justify-content: center; /* لجعل الجدول في الوسط */
+        align-items: center;
+        min-height: 100vh;
+        margin-left: 260px; /* ترك مساحة للـ sidebar */
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h4 class="text-light text-center">Admin Dashboard</h4>
+      <ul class="nav flex-column mt-4">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item mt-4">
+          <span class="navbar-text text-light"> Welcome, Admin </span>
+          <a href="#" class="btn btn-outline-light d-block mt-2">Logout</a>
+        </li>
+      </ul>
+    </div>
+
+    <br />
+    <div class="d-flex justify-content-center align-items-center">
+      <a href="/frontend/Admin/addCategories.html" class="btn btn-primary">
+        اضافه الفئة
+      </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="table-container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">الصورة</th>
+            <th scope="col">اسم الفئة</th>
+            <th scope="col">الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="container">
+          <!-- يتم إدراج الصفوف هنا من خلال JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <script src="/frontend/Admin/CategoriesAdmin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

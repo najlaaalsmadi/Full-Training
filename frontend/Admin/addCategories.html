@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Categories</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .container {
+        max-width: 600px;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        margin-bottom: 20px;
+        color: #343a40;
+      }
+      .form-label {
+        font-weight: bold;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+      .form-control {
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2>Create Categories</h2>
+      <form id="createCategoriesForm" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="categoryName" class="form-label">اسم الفئة</label>
+          <input
+            type="text"
+            class="form-control"
+            id="categoryName"
+            name="categoryName"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="categoryImage" class="form-label">صوره فئة</label>
+          <input
+            type="file"
+            class="form-control"
+            id="categoryImage"
+            name="categoryImage"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">انشاء فئة</button>
+      </form>
+    </div>
+    <script src="/frontend/Admin/addCategories.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
