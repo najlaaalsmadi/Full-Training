@@ -38,15 +38,16 @@ namespace Backend.Controllers
         }
 
         // Get product by name
-        [HttpGet("bynameProduct/{name}")]
-        public IActionResult GetProductByName(string name)
+        [HttpGet("bynameProduct")]
+        public IActionResult GetProductByName()
         {
-            var product = _myDbContext.Products.FirstOrDefault(a => a.ProductName == name);
-            if (product == null)
+            var lastFiveProducts = _myDbContext.Products.OrderByDescending(a => a.ProductName).Take(5)                                  .ToList();                               
+
+            if (lastFiveProducts == null)
             {
                 return NotFound();
             }
-            return Ok(product);
+            return Ok(lastFiveProducts);
         }
 
         [HttpGet("prodectbycategoryId/{category_id}")]

@@ -33,12 +33,19 @@ async function getProducts() {
                         <td>${item.quantity * product.price}</td>
                         <td><a href="#" onclick="removeItem(${
                           item.cartItemId
-                        })">حذف</a>
-                        <BR>    
-<a href="#" onclick="updateItem(${item.cartItemId}, ${
+                        })"style="color: white;" class="btn btn-danger">حذف</a>
+                        <BR>      <BR>
+<a href="#" class="quantity-btn" onclick="updateItem(${item.cartItemId}, ${
             item.quantity + 1
-          })">+</a>/الكمية
-<a href="#" onclick="updateItem(${item.cartItemId}, ${item.quantity - 1})">-</a>
+          })">
+  <span class="quantity-icon">+</span>
+</a>
+<span class="quantity-label">${item.quantity}</span> <!-- عرض الكمية الحالية -->
+<a href="#" class="quantity-btn" onclick="updateItem(${item.cartItemId}, ${
+            item.quantity - 1
+          })">
+  <span class="quantity-icon">−</span>
+</a>
 
 </td>
 

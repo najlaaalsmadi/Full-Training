@@ -1,7 +1,8 @@
 ﻿using Backend.DTO;
 using Backend.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Backend.Controllers
 {
@@ -9,87 +10,90 @@ namespace Backend.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-            private readonly MyDbContext _myDbContext;
+        private readonly MyDbContext _myDbContext;
 
-            public UsersController(MyDbContext myDbContext)
-            {
-                _myDbContext = myDbContext;
-            }
-
-            // Get all products
-            [HttpGet]
-            public IActionResult GetAllUsers()
-            {
-                var Users = _myDbContext.Users.ToList();
-                return Ok(Users);
-            }
-
-            // Get product by ID
-            [HttpGet("by ID Users/{id}")]
-
-            public IActionResult GetUserById(int id)
-            {
-                var Users = _myDbContext.Users.FirstOrDefault(a => a.UserId == id);
-                if (Users == null)
-                {
-                    return NotFound();
-                }
-                return Ok(Users);
-            }
-
-            // Get product by name
-            [HttpGet("byname Users/{name}")]
-            public IActionResult GetUsersByName(string name)
-            {
-                var Users = _myDbContext.Users.FirstOrDefault(a => a.Username == name);
-                if (Users == null)
-                {
-                    return NotFound();
-                }
-                return Ok(Users);
-            }
-
-           
-            [HttpDelete]
-            public IActionResult Delete(int id)
-            {
-                var Users = _myDbContext.Users.Find(id);
-                if (Users == null)
-                {
-                    return NotFound();
-                }
-                _myDbContext.Users.Remove(Users);
-                _myDbContext.SaveChanges();
-                return Ok();
-            }
-    [HttpPost]
-    public IActionResult AddUser([FromForm] UsersDTO users)
+        public UsersController(MyDbContext myDbContext)
         {
-            var u = new User
+            _myDbContext = myDbContext;
+        }
+
+        // تسجيل مستخدم جديد
+        [HttpPost("register")]
+        public IActionResult Register([FromForm] UsersDTO model)
+        {
+            byte[] passwordHash, passwordSalt;
+            PasswordHasher.CreatePasswordHash(model.Password, out passwordHash, out passwordSalt);
+            User user = new User
             {
-                Username = users.Username,
-                Password = users.Password,
-                Email = users.Email
+                Username = model.UserName,
+                Password = model.Password, 
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Email = model.Email
             };
 
-            _myDbContext.Users.Add(u);
+             _myDbContext.Users.Add(user);
             _myDbContext.SaveChanges();
 
-
-            return Ok();
+            return Ok(user);
         }
+
+        // تسجيل الدخول
+        [HttpPost("login")]
+        public IActionResult Login([FromForm] UsersDTO model)
+        {
+            var user =  _myDbContext.Users.FirstOrDefault(x => x.Username == model.UserName);
+
+            if (user == null || !PasswordHasher.VerifyPasswordHash(model.Password, user.PasswordHash, user.PasswordSalt))
+            {
+                return Unauthorized("Invalid username or password.");
+            }
+
+            return Ok("User logged in successfully");
+        }
+
+        // تحديث بيانات مستخدم
         [HttpPut("{id}")]
-        public IActionResult UPDateuser(int id, [FromForm] UsersDTO users) { 
-        var find= _myDbContext.Users.FirstOrDefault(a=>a.UserId==id);
-            find.Username=users.Username;
-            find.Password=users.Password;
-            find.Email=users.Email;
+        public IActionResult UpdateUser(int id, [FromForm] UsersDTO model)
+        {
+            var user = _myDbContext.Users.Find(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
 
-        return Ok();
+            user.Username = model.UserName;
+            user.Email = model.Email;
+
+            // إذا تم تقديم كلمة مرور جديدة، قم بتحديثها
+            if (!string.IsNullOrEmpty(model.Password))
+            {
+                byte[] passwordHash, passwordSalt;
+                PasswordHasher.CreatePasswordHash(model.Password, out passwordHash, out passwordSalt);
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+            }
+
+            _myDbContext.Users.Update(user);
+            _myDbContext.SaveChangesAsync();
+
+            return Ok(user);
         }
 
+        // حذف مستخدم
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            var user =  _myDbContext.Users.Find(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            _myDbContext.Users.Remove(user);
+            _myDbContext.SaveChanges();
+
+            return NoContent(); // 204 No Content
         }
     }
-
-
-
+}
