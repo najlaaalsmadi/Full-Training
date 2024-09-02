@@ -3,7 +3,188 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تعديل المنتج</title>
+    <title>تعديل فئة</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .container {
+        max-width: 600px;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        margin-bottom: 20px;
+        color: #343a40;
+      }
+      .form-label {
+        font-weight: bold;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+      .form-control {
+        border-radius: 4px;
+      }
+
+      /* تخصيص sidebar */
+      .sidebar {
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding-top: 20px;
+        width: 250px;
+        background-color: #343a40;
+      }
+
+      .sidebar .nav-link {
+        color: white;
+        font-size: 18px;
+        margin: 10px 0;
+      }
+
+      .sidebar .nav-link:hover {
+        background-color: #495057;
+      }
+
+      .content {
+        margin-left: 260px; /* ترك مساحة للـ sidebar */
+        padding: 20px;
+      }
+
+      /* تخصيص مركزية الجدول */
+      .table-container {
+        display: flex;
+        justify-content: center; /* لجعل الجدول في الوسط */
+        align-items: center;
+        min-height: 100vh;
+        margin-left: 260px; /* ترك مساحة للـ sidebar */
+        padding: 20px;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <div class="sidebar bg-dark p-3">
+      <h4 class="text-light text-center">Admin Dashboard</h4>
+      <ul class="nav flex-column mt-4">
+        <li class="nav-item">
+          <a
+            class="nav-link active text-light"
+            aria-current="page"
+            href="/frontend/Admin/CategoriesAdmin.html"
+            >Categories</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#">Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#">Users</a>
+        </li>
+        <li class="nav-item mt-4 text-center">
+          <span class="navbar-text text-light"> Welcome, Admin </span>
+          <a
+            href="#"
+            class="btn btn-light btn-sm d-block mt-2"
+            style="width: 200px"
+            >Logout</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="container mt-5">
+      <h2>تعديل فئة</h2>
+      <form id="updateCategoriesForm" enctype="multipart/form-data">
+        <!-- حقل عرض اسم الفئة -->
+        <div class="mb-3">
+          <label for="categoryName" class="form-label">اسم الفئة</label>
+          <input
+            type="text"
+            class="form-control"
+            id="categoryName"
+            name="categoryName"
+            required
+          />
+        </div>
+
+        <!-- حقل عرض الصورة الحالية -->
+        <div class="mb-3">
+          <label for="currentImage" class="form-label">الصورة الحالية</label>
+          <div>
+            <img
+              id="categoryImagePreview"
+              src=""
+              alt="Category Image"
+              style="max-width: 100%; height: auto"
+            />
+          </div>
+        </div>
+
+        <!-- حقل رفع صورة جديدة -->
+        <div class="mb-3">
+          <label for="categoryImage" class="form-label">تحديث الصورة</label>
+          <input
+            type="file"
+            class="form-control"
+            id="categoryImage"
+            name="categoryImage"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="background-color: navy"
+          onclick="updateCategories()"
+        >
+          تعديل فئة
+        </button>
+      </form>
+    </div>
+    <script>
+      // جلب البيانات الحالية للفئة لعرضها في النموذج
+      async function loadCategoryData() {
+        // جلب معرف الفئة من localStorage
+        let n = localStorage.getItem("CategoryID");
+
+        // بناء رابط الجلب باستخدام الـ API
+        const url = `http://localhost:32189/api/Categories/byIDCategory/${n}`;
+
+        // جلب بيانات الفئة
+        let response = await fetch(url);
+        let categoryData = await response.json();
+
+        // عرض اسم الفئة في الحقل
+        document.getElementById("categoryName").value =
+          categoryData.categoryName;
+
+        // عرض الصورة الحالية
+        document.getElementById(
+          "categoryImagePreview"
+        ).src = `/backend/Backend/img/${categoryData.categoryImage}`;
+      }
+
+      // استدعاء الدالة لجلب البيانات عند تحميل الصفحة
+      window.onload = loadCategoryData;
+    </script>
+    <script src="/frontend/Admin/UpdateCategories.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

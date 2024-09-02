@@ -26,12 +26,14 @@ async function getCategory() {
 }
 function Categories(categoryId) {
   localStorage.setItem("CategoryID", categoryId);
+  window.location.href = "/frontend/Admin/UpdateCategories.html";
 }
 function deleteCategories(categoryId) {
   var url = `http://localhost:32189/api/Categories?id=${categoryId}`;
   fetch(url, { method: "DELETE" }).then(() => {
     alert("تم الحذف بنجاح");
     getCategory();
+    window.location.href = "/frontend/Admin/CategoriesAdmin.html";
   });
 }
 getCategory();

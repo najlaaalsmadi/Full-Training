@@ -52,6 +52,7 @@ namespace Backend.Controllers
             return Ok("User logged in successfully");
         }
 
+
         // تحديث بيانات مستخدم
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromForm] UsersDTO model)
@@ -95,5 +96,23 @@ namespace Backend.Controllers
 
             return NoContent(); // 204 No Content
         }
+
+
+
+        // حذف مستخدم
+        [HttpGet("{name}")]
+        public IActionResult serch(string name)
+        {
+            var  user  = _myDbContext.Users.Where(x => x.Username == name).ToList();
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            return Ok(user);
+
+        }
     }
 }
+

@@ -26,7 +26,7 @@ namespace Backend.Controllers
         }
 
         // Get category by ID
-        [HttpGet("by ID Category/{id}")]
+        [HttpGet("byIDCategory/{id}")]
         public IActionResult GetCategoryById(int id)
         {
             var category = _myDbContext.Categories.FirstOrDefault(a => a.CategoryId == id);
@@ -38,7 +38,7 @@ namespace Backend.Controllers
         }
 
         // Get category by name
-        [HttpGet("byname Category/{name}")]
+        [HttpGet("bynameCategory/{name}")]
 
         public IActionResult GetCategoryByName(string name)
         {
@@ -62,7 +62,7 @@ namespace Backend.Controllers
             return Ok();
         }
         [HttpPost]
-        public IActionResult CreateCategories([FromForm] CategoriesDTO category)
+        public async Task<IActionResult> CreateCategories([FromForm] CategoriesDTO category)
         {
             var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
 
@@ -78,29 +78,44 @@ namespace Backend.Controllers
             {
                 return BadRequest("Unsupported file type. Please upload a jpg, jpeg, or png image.");
             }
+
             var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "img");
             if (!Directory.Exists(uploadFolder))
             {
                 Directory.CreateDirectory(uploadFolder);
             }
+
             var imgfile = Path.Combine(uploadFolder, category.CategoryImage.FileName);
+
+            // استخدام await مع عملية النسخ
             using (var stream = new FileStream(imgfile, FileMode.Create))
             {
-                category.CategoryImage.CopyToAsync(stream);
+                await category.CategoryImage.CopyToAsync(stream);
             }
+
             var c = new Category
             {
                 CategoryName = category.CategoryName,
                 CategoryImage = category.CategoryImage.FileName,
             };
+
             _myDbContext.Categories.Add(c);
-            _myDbContext.SaveChanges();
+            await _myDbContext.SaveChangesAsync(); // استخدام await لحفظ البيانات
+
             return Ok();
         }
+
         [HttpPut("{id}")]
-        public IActionResult UpdateCategories(int id,[FromForm] CategoriesDTO category)
+        public async Task<IActionResult> UpdateCategories(int id, [FromForm] CategoriesDTO category)
         {
             var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+
+            // البحث عن الفئة في قاعدة البيانات باستخدام المعرف (id)
+            var find = await _myDbContext.Categories.FindAsync(id);
+            if (find == null)
+            {
+                return NotFound("Category not found.");
+            }
 
             // التحقق من وجود ملف الصورة
             if (category.CategoryImage == null || category.CategoryImage.Length == 0)
@@ -114,31 +129,32 @@ namespace Backend.Controllers
             {
                 return BadRequest("Unsupported file type. Please upload a jpg, jpeg, or png image.");
             }
+
             var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "img");
             if (!Directory.Exists(uploadFolder))
             {
                 Directory.CreateDirectory(uploadFolder);
             }
+
             var imgfile = Path.Combine(uploadFolder, category.CategoryImage.FileName);
+
+            // استخدام await مع عملية النسخ
             using (var stream = new FileStream(imgfile, FileMode.Create))
             {
-                category.CategoryImage.CopyToAsync(stream);
+                await category.CategoryImage.CopyToAsync(stream);
             }
-            var find = _myDbContext.Categories.FirstOrDefault(c=>c.CategoryId==id);
 
-
-            find.CategoryName = category.CategoryName;
-            if (category.CategoryName == null)
-            {
-                find.CategoryImage = find.CategoryImage;
-
-            }
+            // تحديث بيانات الفئة
             find.CategoryImage = category.CategoryImage.FileName;
-        
+
             _myDbContext.Categories.Update(find);
-            _myDbContext.SaveChanges();
+
+            // استخدام await لحفظ التغييرات في قاعدة البيانات
+            await _myDbContext.SaveChangesAsync();
+
             return Ok();
         }
+
 
 
 
