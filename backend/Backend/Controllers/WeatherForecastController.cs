@@ -1,4 +1,6 @@
+﻿using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Backend.Controllers
 {
@@ -29,5 +31,21 @@ namespace Backend.Controllers
             })
             .ToArray();
         }
+        [HttpPost("serch1")]
+        public IActionResult serch1()
+        {
+            int[] numbers = { 2,2,1,4,4 };
+
+            var odd = numbers
+                .GroupBy(n => n)
+                .Where(g => g.Count() % 2 != 0)
+                .Select(g => g.Key).ToList();
+
+            return Ok(odd);
+
+
+        }
+       
+
     }
 }

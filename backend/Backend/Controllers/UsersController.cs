@@ -2,6 +2,7 @@
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Threading.Tasks;
 
 namespace Backend.Controllers
@@ -11,10 +12,12 @@ namespace Backend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly MyDbContext _myDbContext;
+        private readonly  TokenGenerator _tokenGenerator;
 
-        public UsersController(MyDbContext myDbContext)
+        public UsersController(MyDbContext myDbContext, TokenGenerator tokenGenerator)
         {
             _myDbContext = myDbContext;
+            _tokenGenerator = tokenGenerator;
         }
 
         // تسجيل مستخدم جديد
@@ -48,8 +51,11 @@ namespace Backend.Controllers
             {
                 return Unauthorized("Invalid username or password.");
             }
+            var roles =_myDbContext.UserRoles.Where(x => x.UserId == user.UserId).Select(ur => ur.Role).ToList();
+            var token = _tokenGenerator.GenerateToken(user.Username, roles);
+             return Ok(new { token, UserId = user.UserId });
 
-            return Ok("User logged in successfully");
+            ////return Ok("User logged in successfully");
         }
 
 

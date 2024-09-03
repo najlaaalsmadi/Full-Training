@@ -10,10 +10,11 @@ async function loginForm() {
     method: "POST",
     body: formData,
   });
-
+  let result = await response.json();
   // Check if the response is okay and parse JSON
   if (response.ok) {
     window.location.href = "/frontend/Index.html";
+    localStorage.setItem("jwtToken", result.token);
   } else {
     alert("can not login");
   }

@@ -1,6 +1,13 @@
 const url = "http://localhost:32189/api/Categories";
 async function getCategory() {
-  var response = await fetch(url);
+  var token = localStorage.getItem("jwtToken");
+
+  var response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
   console.log(response);
   var result = await response.json();
   console.log(result);

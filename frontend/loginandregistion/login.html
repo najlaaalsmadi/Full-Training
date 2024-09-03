@@ -8,6 +8,22 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       body {
@@ -48,7 +64,151 @@
       }
     </style>
   </head>
-  <body>
+  <body
+    class="d-flex flex-column min-vh-100"
+    style="background: linear-gradient(135deg, #001f3f 0%, #9c27b0 100%)"
+  >
+    <nav class="navbar navbar-expand-sm navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img
+            src="/backend/Backend/img/logo_min_project.png"
+            alt="شعار"
+            style="height: 100px"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="تبديل الملاحة"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="/frontend/Index.html"
+                >الصفحة الرئيسية</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="about.html">حول</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="contact.html">تواصل معنا</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-dark"
+                href="/frontend/Shop/shop.html"
+                onclick=""
+                >متجر</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                تصنيفات
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="products.html?category=شوكلاته"
+                    >شوكلاته</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=اللحوم"
+                    >اللحوم</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=الأسماك"
+                    >الأسماك</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="products.html?category=الحبوب الغذائية والبقوليات"
+                    >الحبوب الغذائية والبقوليات</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=شيبس"
+                    >شيبس</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="products.html?category=منتجات التنظيف والمساحيق"
+                    >منتجات التنظيف والمساحيق</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-dark"
+                href="/frontend/Categories/Categories.html"
+                >تصنيفات</a
+              >
+            </li>
+
+            <!-- افترض أن المستخدم مسجل دخول -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle text-dark"
+                href="#"
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                حسابي
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                <li>
+                  <a class="dropdown-item" href="profile.html">ملف شخصي</a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-danger" href="logout.html"
+                    >تسجيل خروج</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                href="/frontend/Shop/CartItemview.html"
+                class="nav-link text-dark"
+              >
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="btn btn-primary"
+                style="background-color: navy"
+                href="/frontend/loginandregistion/login.html"
+                >تسجيل الدخول</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div class="d-flex justify-content-center align-items-center vh-100">
       <div class="container">
         <div class="row">

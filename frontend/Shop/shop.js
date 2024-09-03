@@ -11,7 +11,14 @@ async function getProducts() {
   var container = document.getElementById("container");
 
   if (n != null) {
-    var response = await fetch(url1);
+    var token = localStorage.getItem("jwtToken");
+
+    var response = await fetch(url1, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     var result = await response.json();
     result.forEach((element) => {
       container.innerHTML += ` 
@@ -29,7 +36,14 @@ async function getProducts() {
     });
     debugger;
   } else {
-    var response1 = await fetch(url2);
+    var token = localStorage.getItem("jwtToken");
+
+    var response1 = await fetch(url2, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     var result1 = await response1.json();
     result1.forEach((element) => {
       container.innerHTML += ` 
