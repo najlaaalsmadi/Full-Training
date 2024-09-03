@@ -1,5 +1,6 @@
 ﻿using Backend.DTO;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,9 @@ namespace Backend.Controllers
         {
             _myDbContext = myDbContext;
         }
-
         // Get all products
         [HttpGet]
+        [Authorize]
         public IActionResult GetAllProducts()
         {
             var products = _myDbContext.Products.ToList();

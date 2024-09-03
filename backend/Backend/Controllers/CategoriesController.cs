@@ -1,5 +1,6 @@
 ﻿using Backend.DTO;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Backend.Controllers
         {
             _myDbContext = myDbContext;
         }
-
+        [Authorize]
         // Get all categories
         [HttpGet]
         public IActionResult GetAllCategories()
